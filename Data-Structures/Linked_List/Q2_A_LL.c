@@ -103,7 +103,28 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+    ListNode *cur1, *cur2, *next1, *next2;
+
+    cur1 = ll1->head;   /* ll1 순회용 pointer */
+    cur2 = ll2->head;   /* ll2 순회용 pointer */
+
+    /* ll1, ll2 둘 다 남아있을 때만 병합 진행 */
+    while (cur1 != NULL && cur2 != NULL) {
+
+        next1 = cur1->next;  /* ll1 다음 node 저장 (덮어쓰기 전에 보관) */
+        next2 = cur2->next;  /* ll2 다음 node 저장 (새로운 ll2 head가 될 것) */
+
+        cur1->next = cur2;   /* ① cur2를 cur1 바로 뒤에 삽입 */
+        cur2->next = next1;  /* ② cur2 뒤에 ll1 나머지 연결 */
+
+        cur1 = next1;        /* ③ ll1 pointer 다음으로 전진 */
+        ll2->head = next2;   /* ④ ll2 head를 다음 미삽입 node로 갱신 */
+        cur2 = next2;        /* ⑤ cur2도 함께 전진 */
+
+        ll1->size++;         /* ll1은 node 하나 흡수 */
+        ll2->size--;         /* ll2는 node 하나 방출 */
+    }
+    /* loop 종료 후 ll2->head는 삽입 못한 나머지 node를 가리킴 */
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
