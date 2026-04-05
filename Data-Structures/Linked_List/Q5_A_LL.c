@@ -103,6 +103,22 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+	if (ll->size == 0) return;
+
+	ListNode *slow = ll->head;
+	ListNode *fast = ll->head;
+
+	// fast가 끝에 도달할 때 slow는 중간에 위치
+	while (fast->next != NULL && fast->next->next != NULL)
+	{
+			slow = slow->next;        // 한 칸
+			fast = fast->next->next;  // 두 칸
+	}
+
+	// slow가 front의 마지막 노드
+	resultFrontList->head = ll->head;
+	resultBackList->head = slow->next;
+	slow->next = NULL;  // 끊기
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
