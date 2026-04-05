@@ -86,7 +86,46 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+    ListNode *cur, *prev, *tail, *fixedTail;
+
+    // Step 1: tail을 맨 끝 node로 이동
+    // 여기까지만 순회할 것이므로 fixedTail로 기억해둠
+    tail = ll->head;
+    while (tail->next != NULL)
+        tail = tail->next;
+    fixedTail = tail;
+
+    // Step 2: 순회 시작 전 초기화
+    // cur는 head부터, prev는 아직 아무것도 없으므로 NULL
+    cur = ll->head;
+    prev = NULL;
+
+    // Step 3: fixedTail 이후는 이미 옮긴 홀수들이므로 거기서 멈춤
+    while (cur != fixedTail->next) {
+        if (cur->item % 2 != 0) {   // 홀수일 때
+            ListNode *next = cur->next;  // cur->next를 미리 저장 (나중에 NULL이 되므로)
+
+            // (a) 원래 자리에서 cur 끊기
+            if (prev == NULL)
+                ll->head = next;         // cur가 head였으면 head 업데이트
+            else
+                prev->next = cur->next;  // 이전 node가 cur 다음을 가리키게
+
+            // (b) tail 뒤에 cur 붙이기
+            tail->next = cur;
+            tail = cur;
+            tail->next = NULL;           // 새로운 tail의 끝은 NULL
+
+            // (c) cur를 다음으로 이동 (미리 저장해둔 next 사용)
+            cur = next;
+            // prev는 업데이트 안 함! cur를 제거했으므로 prev 자리 그대로
+        }
+        else {                           // 짝수일 때
+            // node는 그대로, 포인터만 앞으로 이동
+            prev = cur;
+            cur = cur->next;
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
