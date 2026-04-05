@@ -86,7 +86,23 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	int i = 0;
+	int origianlSize = ll->size;// 핵심! 미리저장
+
+	while(i < origianlSize){
+		ListNode *cur = findNode(ll,i);
+
+		if(cur->tiem % 2==0)// 짝수라면
+		{
+			insertNode(ll,ll->size, cur->item); // 맨 뒤에 추가
+			remove(ll,i); //현재 위치제거
+			// i++ 안 함! 다음 노드가 당겨오니까
+			origianlSize--; // 순회 범위를 줄인다
+		}
+		else{
+			i++ // 홀수면 걍 넘어가기
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
