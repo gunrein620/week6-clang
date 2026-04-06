@@ -88,9 +88,23 @@ int main()
 void RecursiveReverse(ListNode **ptrHead)
 {
 	/* add your code here */
-}
+	ListNode *cur = *ptrHead;
 
-//////////////////////////////////////////////////////////////////////////////////
+	//base case: 마지막 노드 -> 새로운 head로 세팅
+	if (cur == NULL || cur->next ==NULL){
+		//*ptrHead=cur; <- 사실 이미 같은 값이라 생략가능
+			return;
+	}
+	// 1. 뒤쪽 먼저 재귀로 뒤집기 
+	// 2. 호출이 끝나면 *ptrHead는 이미 새 head (마지막 노드)를 가리킴
+	RecursiveReverse(&(cur->next));
+
+	//내 다음 노드가 나를 가리키게
+	cur->next->next =cur;
+	// 나는 꼬리니까 NULL
+	cur->next = NULL;
+	
+	// ptrHead는 재귀 호출에서 이미 업데이트됨-> 건드릴 필요없음!
 
 void printList(LinkedList *ll){
 
