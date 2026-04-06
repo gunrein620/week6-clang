@@ -105,6 +105,7 @@ void RecursiveReverse(ListNode **ptrHead)
 	cur->next = NULL;
 	
 	// ptrHead는 재귀 호출에서 이미 업데이트됨-> 건드릴 필요없음!
+}
 
 void printList(LinkedList *ll){
 
