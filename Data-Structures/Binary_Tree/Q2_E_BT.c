@@ -98,6 +98,16 @@ int maxHeight(BTNode *node)
 
 {
     /* add your code here */
+
+    //NULL이면 -1 반환 (빈 트리의 높이)
+    if(node == NULL) return -1;
+
+    // 왼쪽 서버트리 높이 재귀 계산
+    int left = maxHeight(node->left);
+    // 오른쪽 서브트린 높이 재귀 계산 
+    int right = maxHeight(node.left);
+
+    return(left > right) ? left +1 : right +1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
