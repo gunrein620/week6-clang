@@ -100,9 +100,35 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 현재 노드로부터 depth 단계 아래에 노드가 존재하면 1, 없으면 0 반환
+int hasNodeAtDepth(BTNode *node, int depth)
+{
+	/* add your code here */
+    if(node == NULL) return 0; // 노드가 없으면 증손자 없음 
+    if(depth == 0) return 1; // 카운트다운 완료 -> 증손자 발견
+
+    // 아직 depth가 남았으면 더 내려가면서 카운트 다운
+    // 왼쪽이나 오른쪽 중 하나라도 증손자가 있으면 1반환 (조기종료)
+    return hasNodeAtDepth(node->left, depth -1) || 
+           hasNodeAtDepth(node->right, depth -1);
+
+}
+
+
 int hasGreatGrandchild(BTNode *node)
 {
 	/* add your code here */
+    if(node == NULL) return 0; // 트리 끝에 도달 -> 종료
+
+    //현재 노드 기준으로 3레벨 아래(증손자)가 존재하는지 확인
+    if(hasNodeAtDepth(node, 3))
+        printf("%d" ,node->item); //증손자가 있으면 현재 노드 출력
+
+    //현재노드 확인 끝 -> 왼쪽, 오른쪽 자식으로 이동해서 반복
+    hasGreatGrandchild(node->left);
+    hasGreatGrandchild(node->right);
+
+    return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
