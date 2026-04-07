@@ -103,6 +103,27 @@ int main()
 int smallestValue(BTNode *node)
 {
 	/* add your code here */
+    int leftMin, rightMin, min;
+
+    //현재노드 값을 일단 최솟값으로 설정
+    min = node->item;
+
+    // 왼쪽 자식이 있으면 재귀 호출 -> 반환될 때 비교
+    if (node->left != NULL){
+        leftMin = smallestValue(node->left);
+        if(leftMin < min)
+            min = leftMin;
+    }
+
+    // 오른쪽  자식이 있으면 재귀 호출 -> 반한될 때 비교
+    if(node->right != NULL){
+        rightMin = smallestValue(node->right);
+        if (rightMin < min)
+            min = rightMin;
+    }
+
+    // 현재 서브트리에서의 최솟값 반환 (상위 호출자가 비교에 사용)
+    return min;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
