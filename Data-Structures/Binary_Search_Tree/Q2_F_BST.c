@@ -91,6 +91,28 @@ int main()
 void inOrderTraversal(BSTNode *root)
 {
 	 /* add your code here */
+	 Stack s;
+	 s.top = NULL; // stack 초기화
+
+	 BSTNode *cur = root;// 현재 탐색중인 노드
+
+	 // current가 NULL이고 스택도 비어 있으면 모든 노드 처리 완료
+	 while (cur != NULL || !isEmpty(&s)){
+		//왼쪽 끝까지 내려가면서 스택에 쌓기 
+		// 재귀에서 inOrder(node->left) 호출하는 부분
+		while(cur != NULL){
+			push(&s, cur);
+			cur = cur->left;
+		}
+		// 더 내려갈 수 없으면 pop 해서 출력
+		// 재귀에서 printf() 하는 부분
+			cur = pop(&s);
+			printf("%d ",cur->item);
+
+			//오른쪽 서브트리로 이동
+			//재귀에서 inOrder(node->right) 호출하는 부분
+			cur = cur->right;
+	 }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
